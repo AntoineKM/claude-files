@@ -1,0 +1,35 @@
+{
+  "name": "claude-files",
+  "version": "0.0.0",
+  "description": "CLI tool to prepare local files for Claude Projects by copying them to a single directory while respecting .gitignore rules",
+  "main": "./dist/index.js",
+  "bin": {
+    "claude-files": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "start": "node dist/index.js",
+    "prepare": "npm run build"
+  },
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
+  "keywords": [
+    "claude",
+    "anthropic",
+    "files",
+    "cli"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ignore": "^6.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.3",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
+  }
+}
