@@ -1,6 +1,13 @@
 # claude-files
 
+[![npm version](https://img.shields.io/npm/v/claude-files.svg)](https://www.npmjs.com/package/claude-files)
+[![Downloads](https://img.shields.io/npm/dm/claude-files.svg)](https://www.npmjs.com/package/claude-files)
+[![License](https://img.shields.io/npm/l/claude-files.svg)](https://github.com/AntoineKM/claude-files/blob/main/LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/AntoineKM/claude-files/pulls)
+
 A CLI tool to prepare your local files for Claude Projects by copying them to a single directory while respecting `.gitignore` rules.
+
+## Demo
 
 ## Why?
 
