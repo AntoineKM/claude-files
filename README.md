@@ -9,6 +9,8 @@ A CLI tool to prepare your local files for Claude Projects by copying them to a 
 
 ## Demo
 
+https://github.com/user-attachments/assets/64e44490-7109-432f-9e87-cc1497dfefc9
+
 ## Why?
 
 Claude Projects currently only supports uploading individual files, not directories. This tool helps by:
