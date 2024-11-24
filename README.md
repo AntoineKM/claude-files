@@ -13,23 +13,35 @@ Claude Projects currently only supports uploading individual files, not director
 * Skipping unsupported file formats
 * Adding source comments to track file origins
 
-## Installation
-
-```bash
-npm install -g claude-files
-```
-
 ## Usage
 
-Simply run in your project directory:
+### Using npx (recommended)
+
+You can use the tool directly with npx without installing it:
 
 ```bash
-claude-files
+npx claude-files
 ```
 
 Or specify a directory:
 
 ```bash
+npx claude-files ./path/to/project
+```
+
+### Global Installation
+
+Alternatively, you can install it globally:
+
+```bash
+npm install -g claude-files
+```
+
+Then use it anywhere:
+
+```bash
+claude-files
+# or
 claude-files ./path/to/project
 ```
 
