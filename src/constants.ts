@@ -1,4 +1,5 @@
 export const CLAUDE_FILES_DIR = '.claude-files';
+export const CLAUDE_FILESIGNORE = '.claude-filesignore';
 
 export const UNSUPPORTED_EXTENSIONS = [
     '.png',
@@ -7,7 +8,26 @@ export const UNSUPPORTED_EXTENSIONS = [
     '.webp',
     '.mp4',
     '.ico',
-    '.svg'
+    '.svg',
+    // Font files
+    '.ttf',
+    '.otf',
+    '.woff',
+    '.woff2',
+    '.eot',
+    // Audio files
+    '.mp3',
+    '.wav',
+    '.aac',
+    '.flac',
+    '.m4a',
+    // Video files
+    '.mp4',
+    '.webm',
+    '.ogv',
+    '.avi',
+    '.mov',
+    '.wmv',
 ];
 
 export const DEFAULT_IGNORES = [

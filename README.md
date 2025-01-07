@@ -29,13 +29,28 @@ Claude Projects currently only supports uploading individual files, not director
 You can use the tool directly with npx without installing it:
 
 ```bash
-npx claude-files
-```
+# Basic usage
+npx claude-files [directory]
 
-Or specify a directory:
+# Show help
+npx claude-files --help
 
-```bash
-npx claude-files ./path/to/project
+# Ignore specific files or patterns (can be used multiple times)
+npx claude-files --ignore "*.test.ts" "docs/**"
+# or use the short form
+npx claude-files -i "*.test.ts" "docs/**"
+
+# Dry run - show what would be copied without copying
+npx claude-files --dry-run
+
+# Verbose output
+npx claude-files --verbose
+
+# Skip adding source comments
+npx claude-files --no-comments
+
+# Show version
+npx claude-files --version
 ```
 
 ### Global Installation
@@ -94,13 +109,30 @@ function helper() {
 }
 ```
 
-### 4. Gitignore Integration
+### 4. Flexible Ignore Rules
+
+You can ignore files and directories in multiple ways:
+
+1. Using `.gitignore` (automatically respected)
+2. Using `.claude-filesignore` (project-specific ignore rules)
+3. Using command-line arguments with `--ignore` or `-i`
+
+The ignore patterns follow the same syntax as `.gitignore`. For example:
+
+```bash
+# .claude-filesignore
+*.test.ts
+docs/**
+temp/
+```
+
+### 5. Gitignore Integration
 
 * Automatically respects your existing `.gitignore` rules
 * Adds `.claude-files/` to your `.gitignore` if it exists
 * Uses default ignore patterns for common files
 
-### 5. File Format Filtering
+### 6. File Format Filtering
 
 Automatically skips unsupported file formats:
 
@@ -109,7 +141,7 @@ Automatically skips unsupported file formats:
 * Icons: `.ico`
 * Vector graphics: `.svg`
 
-### 6. Smart Comment Syntax
+### 7. Smart Comment Syntax
 
 Adds source comments using the correct syntax for each file type:
 
@@ -137,7 +169,7 @@ Besides your `.gitignore` rules, the following are ignored by default:
 * `.env` files
 * Log files
 * Lock files (package-lock.json, yarn.lock, etc.)
-* System files (.DS\_Store, Thumbs.db)
+* System files (.DS_Store, Thumbs.db)
 
 ## License
 

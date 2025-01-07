@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { promisify } from 'util';
 import ignore, { Ignore } from 'ignore';
-import { DEFAULT_IGNORES, CLAUDE_FILES_DIR, UNSUPPORTED_EXTENSIONS } from './constants';
+import { DEFAULT_IGNORES, CLAUDE_FILES_DIR, CLAUDE_FILESIGNORE, UNSUPPORTED_EXTENSIONS } from './constants';
 import { FileInfo, CopyResult } from './types';
 import { formatFileSize } from './utils';
 
@@ -94,9 +94,13 @@ export async function updateGitignore(baseDir: string): Promise<void> {
     }
 }
 
-export async function loadGitignore(baseDir: string): Promise<Ignore> {
+export async function loadIgnoreRules(
+    baseDir: string,
+    additionalPatterns: string[] = []
+): Promise<Ignore> {
     const ig = ignore().add(DEFAULT_IGNORES);
 
+    // Load .gitignore
     try {
         const gitignorePath = path.join(baseDir, '.gitignore');
         await access(gitignorePath, fs.constants.R_OK);
@@ -105,6 +109,23 @@ export async function loadGitignore(baseDir: string): Promise<Ignore> {
         console.log('.gitignore rules loaded successfully');
     } catch (error) {
         console.log('No .gitignore file found, using default rules');
+    }
+
+    // Load .claude-filesignore
+    try {
+        const claudeIgnorePath = path.join(baseDir, CLAUDE_FILESIGNORE);
+        await access(claudeIgnorePath, fs.constants.R_OK);
+        const claudeIgnoreContent = await readFile(claudeIgnorePath, 'utf8');
+        ig.add(claudeIgnoreContent);
+        console.log('.claude-filesignore rules loaded successfully');
+    } catch (error) {
+        console.log('No .claude-filesignore file found');
+    }
+
+    // Add command-line ignore patterns
+    if (additionalPatterns.length > 0) {
+        ig.add(additionalPatterns);
+        console.log('Added command-line ignore patterns:', additionalPatterns);
     }
 
     return ig;
@@ -154,7 +175,8 @@ export async function getAllFiles(
 
 export async function copyFilesToClaudeDir(
     files: FileInfo[], 
-    baseDir: string
+    baseDir: string,
+    addComments: boolean = true
 ): Promise<CopyResult> {
     const claudeDir = path.join(baseDir, CLAUDE_FILES_DIR);
     let totalSize = 0;
@@ -203,9 +225,11 @@ export async function copyFilesToClaudeDir(
             // No need to create subdirectories anymore as all files will be in the root of .claude-files
             await copyFile(file.sourcePath, destPath);
             
-            // Add source comment at the beginning of the file
-            const sourceRelativePath = path.relative(baseDir, file.sourcePath);
-            await addSourceComment(destPath, sourceRelativePath);
+            // Add source comment at the beginning of the file if enabled
+            if (addComments) {
+                const sourceRelativePath = path.relative(baseDir, file.sourcePath);
+                await addSourceComment(destPath, sourceRelativePath);
+            }
             
             const stats = await stat(file.sourcePath);
             totalSize += stats.size;
