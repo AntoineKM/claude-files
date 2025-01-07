@@ -25,6 +25,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "commander": "^13.0.0",
     "ignore": "^6.0.2"
   },
   "devDependencies": {
