@@ -1,6 +1,6 @@
 {
   "name": "claude-files",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "CLI tool to prepare local files for Claude Projects by copying them to a single directory while respecting .gitignore rules",
   "main": "./dist/index.js",
   "bin": {
